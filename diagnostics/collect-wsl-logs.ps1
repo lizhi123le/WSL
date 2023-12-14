@@ -9,7 +9,7 @@ Param (
 Set-StrictMode -Version Latest
 
 $folder = "WslLogs-" + (Get-Date -Format "yyyy-MM-dd_HH-mm-ss")
-mkdir -p $folder
+mkdir -p $folder | Out-Null
 
 if ($LogProfile -eq $null)
 {
@@ -22,21 +22,20 @@ if ($LogProfile -eq $null)
     }
 }
 
-reg.exe export HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss $folder/HKCU.txt
-reg.exe export HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Lxss $folder/HKLM.txt
-reg.exe export HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\P9NP $folder/P9NP.txt
-reg.exe export HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinSock2 $folder/Winsock2.txt
-reg.exe export "HKEY_CLASSES_ROOT\Interface\{46f3c96d-ffa3-42f0-b052-52f5e7ecbb08}" $folder/wslsupport-interface.txt
-reg.exe export "HKEY_CLASSES_ROOT\CLSID\{e66b0f30-e7b4-4f8c-acfd-d100c46c6278}" $folder/wslsupport-proxy.txt
-reg.exe export "HKEY_CLASSES_ROOT\CLSID\{a9b7a1b9-0671-405c-95f1-e0612cb4ce7e}" $folder/wslsupport-impl.txt
+reg.exe export HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss $folder/HKCU.txt | Out-Null
+reg.exe export HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Lxss $folder/HKLM.txt | Out-Null
+reg.exe export HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\P9NP $folder/P9NP.txt | Out-Null
+reg.exe export HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinSock2 $folder/Winsock2.txt | Out-Null
+reg.exe export "HKEY_CLASSES_ROOT\CLSID\{e66b0f30-e7b4-4f8c-acfd-d100c46c6278}" $folder/wslsupport-proxy.txt | Out-Null
+reg.exe export "HKEY_CLASSES_ROOT\CLSID\{a9b7a1b9-0671-405c-95f1-e0612cb4ce7e}" $folder/wslsupport-impl.txt | Out-Null
 
 $wslconfig = "$env:USERPROFILE/.wslconfig"
 if (Test-Path $wslconfig)
 {
-    Copy-Item $wslconfig $folder
+    Copy-Item $wslconfig $folder | Out-Null
 }
 
-get-appxpackage MicrosoftCorporationII.WindowsSubsystemforLinux > $folder/appxpackage.txt
+get-appxpackage MicrosoftCorporationII.WindowsSubsystemforLinux -ErrorAction Ignore > $folder/appxpackage.txt
 get-acl "C:\ProgramData\Microsoft\Windows\WindowsApps" -ErrorAction Ignore | Format-List > $folder/acl.txt
 Get-WindowsOptionalFeature -Online > $folder/optional-components.txt
 bcdedit.exe > $folder/bcdedit.txt
@@ -58,7 +57,9 @@ if ($LastExitCode -Ne 0)
 
 try
 {
-    Write-Host -NoNewLine -ForegroundColor Green "Log collection is running. Please reproduce the problem and press any key to save the logs."
+    Write-Host -NoNewLine "Log collection is running. Please "
+    Write-Host -NoNewLine -ForegroundColor Red "reproduce the problem "
+    Write-Host -NoNewLine "and once done press any key to save the logs."
 
     $KeysToIgnore =
           16,  # Shift (left or right)
