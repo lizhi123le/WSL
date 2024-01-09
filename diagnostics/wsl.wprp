@@ -96,6 +96,12 @@
         <Keyword Value="0xFFFFFFFFFFFFFFFF" />
       </Keywords>
     </EventProvider>
+    
+    <EventProvider Id="storvsp_wpp" Name="f96abc17-6a5e-4a49-a3f4-a2a86fa03846" NonPagedMemory="true" Level="4">
+      <Keywords>
+        <Keyword Value="0xFFFFFFFFFFFFFFFF" />
+      </Keywords>
+    </EventProvider>
 
     <Profile
       Id="WSL.Verbose.File"
@@ -148,6 +154,7 @@
             <EventProviderId Value="vhdmp"/>
             <EventProviderId Value="vhdmp_wpp"/>
             <EventProviderId Value="storvsp"/>
+            <EventProviderId Value="storvsp_wpp"/>
             <EventProviderId Value="HyperV_SyntheticStorage"/>
             <EventProviderId Value="HyperV_EmulatedStorage"/>
             <EventProviderId Value="EventProvider_Telemetry_StorVSP"/>
