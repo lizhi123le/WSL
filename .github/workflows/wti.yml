@@ -7,6 +7,8 @@ jobs:
   wti:
     name: Run wti
     runs-on: windows-2022
+    permissions:
+      issues: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
