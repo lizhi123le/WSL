@@ -1,0 +1,32 @@
+name: Run automated triage
+
+on:
+  workflow_call:
+    inputs:
+        similar_issue_text:
+          required: false
+          type: string
+
+jobs:
+  wti:
+    name: Run wti
+    runs-on: windows-2022
+    permissions:
+      issues: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 'Run WTI'
+        if: ${{ !contains(needs.getSimilarIssues.outputs.message, '''@') }} # Skip this step if the description contains a string that will break the here document
+        run: |
+            $message = @'
+            ${{ needs.getSimilarIssues.outputs.message }}
+            '@;
+            
+            $maybe_message = ""
+            if (![string]::IsNullOrEmpty($message)
+            {
+                $maybe_message = "--default-message-stdin";
+            }
+            cd triage && echo $message | .\wti.exe --issue 11305 --config config.yml --github-token "${{ secrets.GITHUB_TOKEN }}" --ignore-tags  $maybe_message
