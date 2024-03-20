@@ -17,6 +17,7 @@ jobs:
           issueBody: "Cannot install WSL on latest Windows Insider dev build" # Hardcoded for testing
           repository: ${{ github.repository }}
           similarityTolerance: "0.1" # Lowered value for testing
+          commentBody: Please view the issues below to see if they solve your problem, and if the issue describes your problem please consider closing this one and thumbs upping the other issue to help us prioritize it!
 
   wti:
     name: Run wti

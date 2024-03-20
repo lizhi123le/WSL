@@ -4,7 +4,7 @@ logs_rules:
     missing_logs_message: |
         **No logs file found in this issue**.
         
-        If this a feature request, please add the 'feature' tag. If this is a question, please add the `question` tag.
+        If this a feature request, please reply with '/feature' tag. If this is a question, reply with '/question'.
         Otherwise please attach logs by following those instructions: 
         
         Download and execute [collect-wsl-logs.ps1](https://github.com/Microsoft/WSL/blob/master/diagnostics/collect-wsl-logs.ps1) in an **administrative powershell prompt**:
@@ -22,8 +22,6 @@ logs_rules:
         [Click here for more info on logging](https://github.com/microsoft/WSL/blob/master/CONTRIBUTING.md#8-collect-wsl-logs-recommended-method)
         If you choose to email these logs instead of attaching to the bug, please send them to wsl-gh-logs@microsoft.com with the number of the github issue in the subject, and in the message a link to your comment in the github issue and add the `emailed-logs` tag to this issue.
         
-         
-        Thank you!
     
     missing_logs_add_tags: ['needs-author-feedback']
     skip_tags: ['feature', 'question', 'emailed-logs', 'network']
