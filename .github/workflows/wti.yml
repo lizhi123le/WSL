@@ -29,6 +29,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 'Run WTI'
-        if: ${{ !contains(needs.getSimilarIssues.outputs.message, "'@") }} # Skip this step if the description contains a string that will break the here document
+        if: ${{ !contains(needs.getSimilarIssues.outputs.message, "\'@") }} # Skip this step if the description contains a string that will break the here document
         run: |
             cd echo @'${{ needs.getSimilarIssues.outputs.message }}'@ |  .github\workflows && .\wti.exe --issue 11305 --config config.yml --github-token "${{ secrets.GITHUB_TOKEN }}" --ignore-tags --default-message-stdin
