@@ -25,7 +25,6 @@ jobs:
     runs-on: windows-2022
     permissions:
       issues: write
-    steps:
     uses: ./.github/workflows/automated-triage.yml
     with:
       similar_issues_text: "${{ needs.getSimilarIssues.outputs.message }}"
