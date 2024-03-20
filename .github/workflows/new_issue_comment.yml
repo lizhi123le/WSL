@@ -9,7 +9,11 @@ jobs:
     runs-on: windows-2022
     permissions:
       issues: write
-    uses: ./.github/workflows/automated-triage.yml
-    with:
-      comment: '2010845646'
-      issue: '11306'
+    steps: 
+        - name: Checkout repo
+          uses: actions/checkout@v4
+        
+        - uses: ./.github/actions/triage
+          with: 
+              issue: '11306'
+              comment: '2010845646'
