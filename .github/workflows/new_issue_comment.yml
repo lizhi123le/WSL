@@ -1,0 +1,19 @@
+name: Process new comment on issue
+
+on: 
+  pull_request: # TODO change with issue_comment
+
+jobs:
+  wti:
+    name: Run wti
+    runs-on: windows-2022
+    permissions:
+      issues: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - uses: ./.github/workflows/automated_triage.yml
+        with:
+            comment: '2010845646'
+            issue: '11306'
