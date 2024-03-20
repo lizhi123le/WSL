@@ -21,7 +21,7 @@ jobs:
       issues: write
     steps:    
       - name: Checkout repo
-      uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: 'Run WTI'
         if: ${{ !contains(inputs.similar_issue_text, '''@') }} # Skip this step if the description contains a string that will break the here document
