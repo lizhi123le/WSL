@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - uses: ./.github/workflows/automated_triage.yml
+      - uses: ./.github/workflows/automated-triage.yml
         with:
             comment: '2010845646'
             issue: '11306'
