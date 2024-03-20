@@ -26,7 +26,7 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: ./.github/workflows/automated-triage.yml
-        with:
-          similar_issues_text: "${{ needs.getSimilarIssues.outputs.message }}"
-          issue: 11305
+    uses: ./.github/workflows/automated-triage.yml
+      with:
+        similar_issues_text: "${{ needs.getSimilarIssues.outputs.message }}"
+        issue: 11305
