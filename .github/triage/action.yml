@@ -1,0 +1,38 @@
+name: Run automated triage
+
+
+inputs:
+    issue:
+      required: false
+      type: string
+    similar_issue_text:
+      required: false
+      type: string
+    comment:
+      required: false
+      type: string
+
+runs:
+    using: "composite"
+    runs-on: windows-2022
+    steps:    
+      - name: 'Run WTI'
+        if: ${{ !contains(inputs.similar_issue_text, '''@') }} # Skip this step if the description contains a string that will break the here document
+        run: |
+            $message = @'
+            ${{ inputs.similar_issue_text }}
+            '@;
+            
+            $maybe_message = ""
+            if (![string]::IsNullOrEmpty($message)
+            {
+                $maybe_message = "--default-message-stdin";
+            }
+            
+            $maybe_comment = @()
+            if (![string]::IsNullOrEmpty("${{ inputs.comment }}"))
+            {
+                $maybe_comment = @("--comment", "--${{ inputs.comment }}")
+            }
+            
+            cd wsl\triage && echo $message | .\wti.exe --issue ${{ inputs.issue }} --config config.yml --github-token "${{ secrets.GITHUB_TOKEN }}" --ignore-tags $maybe_message @maybe_comment 
