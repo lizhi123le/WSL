@@ -8,5 +8,8 @@ jobs:
     name: Run wti
     runs-on: windows-2022
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: 'Run WTI'
         run: cd \.github\workflows && wti.exe --issue 11306 --config config.yml --github-token "${{ secrets.GITHUB_TOKEN }}" --ignore-tags
