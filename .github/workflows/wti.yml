@@ -16,7 +16,7 @@ jobs:
           issueTitle: "Cannot install WSL on latest Windows Insider dev build" # Hardcoded for testing
           issueBody: "Cannot install WSL on latest Windows Insider dev build" # Hardcoded for testing
           repository: ${{ github.repository }}
-          similarityTolerance: "0.7"
+          similarityTolerance: "0.1" # Lowered value for testing
 
   wti:
     name: Run wti
