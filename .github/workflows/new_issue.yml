@@ -32,3 +32,4 @@ jobs:
       with: 
         similar_issues_text: "${{ needs.getSimilarIssues.outputs.message }}"
         issue: '11305'
+        token: ${{ secrets.GITHUB_TOKEN }}

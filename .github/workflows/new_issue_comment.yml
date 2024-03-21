@@ -17,3 +17,4 @@ jobs:
           with: 
               issue: '11306'
               comment: '2010845646'
+              token: ${{ secrets.GITHUB_TOKEN }}
