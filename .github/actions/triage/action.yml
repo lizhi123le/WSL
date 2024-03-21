@@ -37,4 +37,4 @@ runs:
                 $maybe_comment = @("--comment", "--${{ inputs.comment }}")
             }
             
-            cd wsl\triage && echo $message | .\wti.exe --issue ${{ inputs.issue }} --config config.yml --github-token "${{ secrets.GITHUB_TOKEN }}" --ignore-tags $maybe_message @maybe_comment 
+            cd wsl\triage && echo $message | .\wti.exe --issue ${{ inputs.issue }} --config config.yml --github-token "${{ inputs.token }}" --ignore-tags $maybe_message @maybe_comment 
