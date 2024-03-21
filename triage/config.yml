@@ -3,12 +3,12 @@ wpa_profile: no-filter.wpaProfile
 logs_rules:
     missing_logs_message: |
         # Logs required        
-        If this a feature request, please reply with '/feature' tag. If this is a question, reply with '/question'.
-        Otherwise please attach logs by following the instructions below.
+        If this a feature request, please reply with '/feature'. If this is a question, reply with '/question'.
+        **Otherwise please attach logs by following the instructions below**.
         
         <details>
         
-        <summary> How to collect WSL logs</summary>
+        <summary>How to collect WSL logs</summary>
         
         Download and execute [collect-wsl-logs.ps1](https://github.com/Microsoft/WSL/blob/master/diagnostics/collect-wsl-logs.ps1) in an **administrative powershell prompt**:
         
