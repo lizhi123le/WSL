@@ -40,6 +40,6 @@ runs:
                 $maybe_comment = @("--comment", "${{ inputs.comment }}")
             }
             
-            curl.exe -L https://github.com/OneBlue/wti/releases/download/${wti_version}/wti.exe -o wti.exe
+            curl.exe -L https://github.com/OneBlue/wti/releases/download/$wti_version/wti.exe -o wti.exe
             
             cd triage && echo $message | ..\wti.exe --issue ${{ inputs.issue }} --config config.yml --github-token "${{ inputs.token }}" --ignore-tags @maybe_message @maybe_comment 
