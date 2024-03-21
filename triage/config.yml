@@ -109,7 +109,10 @@ rules:
         provider: Microsoft.Windows.Subsystem.Lxss
         task: UserVisibleError
         field3: {regex: '.*/ConfigureNetworking/HNS/.*'}
-      set: hns-fatal-error
+      set: 
+        name: hns-fatal-error
+        capture:
+          field3: error
       
       
     - logline:
@@ -168,6 +171,7 @@ actions:
         condition:
           and: ['vm-failed-to-start', 'hns-fatal-error']
         user_message: 'An HNS error seems to be causing WSL2 to fail to start. Adding network tag'
+        debug_message: 'Found HNS error: $error'
         tag: 'network'
         
     - when:
