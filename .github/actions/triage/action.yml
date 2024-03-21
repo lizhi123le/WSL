@@ -14,8 +14,7 @@ inputs:
 
 runs:
     using: "composite"
-    runs-on: windows-2022
-    steps:    
+    steps:
       - name: 'Run WTI'
         if: ${{ !contains(inputs.similar_issue_text, '''@') }} # Skip this step if the description contains a string that will break the here document
         run: |
