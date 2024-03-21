@@ -34,7 +34,7 @@ runs:
             $maybe_comment = @()
             if (![string]::IsNullOrEmpty("${{ inputs.comment }}"))
             {
-                $maybe_comment = @("--comment", "--${{ inputs.comment }}")
+                $maybe_comment = @("--comment", "${{ inputs.comment }}")
             }
             
             cd triage && echo $message | .\wti.exe --issue ${{ inputs.issue }} --config config.yml --github-token "${{ inputs.token }}" --ignore-tags @maybe_message @maybe_comment 
