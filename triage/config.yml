@@ -33,7 +33,7 @@ tags_rules:
     - contains: '/feature'
       tag: 'feature'
       
-  - contains: '/emailed-logs'
+    - contains: '/emailed-logs'
       tag: 'emailed-logs'
 
 rules:
@@ -121,6 +121,15 @@ rules:
         capture:
             field4: error
       
+    - logline:
+        provider: Microsoft.Windows.Lxss.Manager
+        task: GuestLog
+        field1:
+            contains: 'EXT4-fs error'
+      set: 
+        name: ext4-error
+        capture:
+            field1: error
 actions:
     - foreach:
         var: user-visible-error
@@ -167,3 +176,9 @@ actions:
         user_message: 'Known vmswitch issue found (error: $error). Adding network tag'
         debug_message: 'Found evidence of vmswitch error: $error'
         tag: 'network'
+        
+    - when: 
+        condition: 'ext4-error'
+        user_message: 'The logs shows that a disk mount error occured. Try to [follow these repair instructions](https://learn.microsoft.com/en-us/windows/wsl/disk-space#how-to-repair-a-vhd-mounting-error) and see if that solves the issue.'
+        debug_message: 'Found evidence of ext4 error: $error'
+        tag: 'needs-author-feedback'
