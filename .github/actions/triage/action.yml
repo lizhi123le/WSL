@@ -23,12 +23,12 @@ runs:
         run: |
             $message = @'
             ${{ inputs.similar_issues_text }}
-            '@;
+            '@
             
-            $maybe_message = ""
+            $maybe_message = @()
             if (![string]::IsNullOrEmpty($message))
             {
-                $maybe_message = "--default-message-stdin";
+                $maybe_message = @("--default-message-stdin")
             }
             
             $maybe_comment = @()
@@ -37,4 +37,4 @@ runs:
                 $maybe_comment = @("--comment", "--${{ inputs.comment }}")
             }
             
-            cd triage && echo $message | .\wti.exe --issue ${{ inputs.issue }} --config config.yml --github-token "${{ inputs.token }}" --ignore-tags $maybe_message @maybe_comment 
+            cd triage && echo $message | .\wti.exe --issue ${{ inputs.issue }} --config config.yml --github-token "${{ inputs.token }}" --ignore-tags @maybe_message @maybe_comment 
