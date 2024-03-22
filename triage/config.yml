@@ -2,7 +2,8 @@ wpa_profile: no-filter.wpaProfile
 
 logs_rules:
     missing_logs_message: |
-        # Logs required        
+        # Logs are required for review from WSL team
+
         If this a feature request, please reply with '/feature'. If this is a question, reply with '/question'.
         **Otherwise please attach logs by following the instructions below**.
         
