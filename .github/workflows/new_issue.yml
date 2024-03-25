@@ -1,7 +1,8 @@
 name: Process new issue
 
-on: 
-  pull_request: # TODO change with issue 
+on:
+  issues:
+    types: [opened]
 
 jobs:
   getSimilarIssues:
@@ -13,10 +14,10 @@ jobs:
       - id: getBody
         uses: craigloewen-msft/GitGudSimilarIssues@main
         with:
-          issueTitle: "Cannot install WSL on latest Windows Insider dev build" # Hardcoded for testing
-          issueBody: "Cannot install WSL on latest Windows Insider dev build" # Hardcoded for testing
+          issueTitle: ${{ github.event.issue.title }}
+          issueBody: ${{ github.event.issue.body }}
           repository: ${{ github.repository }}
-          similarityTolerance: "0.1" # Lowered value for testing
+          similarityTolerance: "0.7"
           commentBody: |
             # View similar issues
             Please view the issues below to see if they solve your problem, and if the issue describes your problem please consider closing this one and thumbs upping the other issue to help us prioritize it!
@@ -33,5 +34,5 @@ jobs:
     - uses: ./.github/actions/triage
       with: 
         similar_issues_text: "${{ needs.getSimilarIssues.outputs.message }}"
-        issue: '11305'
+        issue: "${{ github.event.issue.number }}"
         token: ${{ secrets.GITHUB_TOKEN }}

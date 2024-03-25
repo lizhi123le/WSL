@@ -1,7 +1,8 @@
 name: Process new comment on issue
 
 on: 
-  pull_request: # TODO change with issue_comment
+  issue_comment:
+    types: [created]
 
 jobs:
   wti:
@@ -9,12 +10,13 @@ jobs:
     runs-on: windows-2022
     permissions:
       issues: write
+    if: ${{ !github.event.issue.pull_request && github.event.issue.user.id == github.event.comment.user.id }}
     steps: 
         - name: Checkout repo
           uses: actions/checkout@v4
         
         - uses: ./.github/actions/triage
           with: 
-              issue: '11306'
-              comment: '2010845646'
+              issue: '${{ github.event.issue.number }}'
+              comment: '${{ github.event.comment.id }}'
               token: ${{ secrets.GITHUB_TOKEN }}
