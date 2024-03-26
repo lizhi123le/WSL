@@ -147,6 +147,7 @@ rules:
     - logline:
         provider: Microsoft.Windows.Subsystem.Lxss
       set: wsl-client-logs
+      oneshot: true
 
 actions:
     - foreach:
