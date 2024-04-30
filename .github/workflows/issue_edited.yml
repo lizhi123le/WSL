@@ -18,7 +18,7 @@ jobs:
         with:
           issueTitle: "Dummy" # ${{ github.event.issue.title }}
           issueBody: "Dummy" # ${{ github.event.issue.body }}
-          repository: "Dummy" # ${{ github.repository }}
+          repository: ${{ github.repository }}
           similarityTolerance: "0.7"
           commentBody: |
             # View similar issues
