@@ -47,7 +47,7 @@ runs:
             $maybe_previous_body = @()
             if (![string]::IsNullOrEmpty("$env:previous_body"))
             {
-                $env:previous_body | Out-File -Encoding utf8 "previous_body.txt"
+                $env:previous_body | Out-File -Encoding utf8 "triage\previous_body.txt"
                 $maybe_previous_body = @("--previous-issue-body", "previous_body.txt")
             }
             
