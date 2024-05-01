@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   issues:
     types: [edited]
-  pull_request: # For testing
 
 jobs:
   getSimilarIssues:
@@ -16,8 +15,8 @@ jobs:
       - id: getBody
         uses: craigloewen-msft/GitGudSimilarIssues@main
         with:
-          issueTitle: "Dummy" # ${{ github.event.issue.title }}
-          issueBody: "Dummy" # ${{ github.event.issue.body }}
+          issueTitle: ${{ github.event.issue.title }}
+          issueBody: ${{ github.event.issue.body }}
           repository: ${{ github.repository }}
           similarityTolerance: "0.7"
           commentBody: |
@@ -36,6 +35,6 @@ jobs:
     - uses: ./.github/actions/triage
       with: 
         similar_issues_text: "${{ needs.getSimilarIssues.outputs.message }}"
-        issue: "11307" #"${{ github.event.issue.number }}"
-        previous_body: "Dummy log file: https://github.com/microsoft/WSL/files/14608003/WslLogs-2024-03-14_14-12-01.zip" # "${{ github.event.changes.body.from }}"
+        issue: "${{ github.event.issue.number }}"
+        previous_body: "${{ github.event.changes.body.from }}"
         token: ${{ secrets.GITHUB_TOKEN }}
