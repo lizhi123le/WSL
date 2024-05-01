@@ -37,5 +37,5 @@ jobs:
       with: 
         similar_issues_text: "${{ needs.getSimilarIssues.outputs.message }}"
         issue: "11307" #"${{ github.event.issue.number }}"
-        previous_body: "Dummy" # "${{ github.event.changes.body.from }}"
+        previous_body: "Dummy log file: https://github.com/microsoft/WSL/files/14608003/WslLogs-2024-03-14_14-12-01.zip" # "${{ github.event.changes.body.from }}"
         token: ${{ secrets.GITHUB_TOKEN }}
