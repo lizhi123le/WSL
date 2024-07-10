@@ -124,6 +124,16 @@ rules:
 
     - logline:
         provider: Microsoft.Windows.Lxss.Manager
+        task: Error
+        field9: {contains: HcnCreateNetwork}
+      set:
+        name: hns-create-network-error
+        capture:
+          field9: error
+          field8: hresult
+
+    - logline:
+        provider: Microsoft.Windows.Lxss.Manager
       set: service-running
       oneshot: true
       
@@ -136,7 +146,7 @@ rules:
       
     - logline:
         provider: Microsoft.Windows.Subsystem.Lxss
-        task: UserVisibleError
+        task: UserVisible Error
         field3: {regex: '.*/ConfigureNetworking/HNS/.*'}
       set: 
         name: hns-fatal-error
@@ -225,8 +235,18 @@ actions:
         user_message: 'The logs show that your Hyper-V firmware is expired. Please update your Windows build and see if that solves the issue'
         tag: needs-author-feedback
         skip_similar_issues: true
-
         
+    - when: 
+        condition:  'hns-create-network-error'
+        debug_message: 'Found evidence of HcnCreateNetwork failure: $error. HResult: $hresult'
+
+    - when:
+        condition:
+         and: ['vm-failed-to-start', 'hns-create-network-error']
+        user_message: "The logs show that the VM failed to start because the HNS network couldn't be created. Adding network tag"
+        tag: network
+        skip_similar_issues: true
+
     - when:
         condition:
           and: ['vm-failed-to-start', 'corrupted-initramfs']
