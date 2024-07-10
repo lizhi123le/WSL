@@ -84,7 +84,17 @@ rules:
         field1:
             regex: 'WSL (.*) ERROR'
       set: init-error
-      
+
+    - logline:
+        provider: Microsoft.Windows.Lxss.Manager
+        task: GuestLog
+        field1:
+            regex: 'init(.*) segfault'
+      set:
+        name: init-crash
+        capture:
+            field1: error
+
     - logline:
         provider: Microsoft.Windows.Subsystem.Lxss
         task: UserVisibleError
@@ -215,7 +225,11 @@ actions:
         debug_message: 'Detected user visible error: $error'
         skip_similar_issues: false
 
-        
+    - when:
+        condition: 'init-crash'
+        debug_message: 'Found evidence of init crash: $error'
+        tag: init-crash
+
     - when:
         condition: 'kernel-panic'
         debug_message: 'Found evidence of kernel panic: $kmsg'
